@@ -15,13 +15,15 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
+import androidx.compose.ui.text.TextStyle
 import dev.snipme.highlights.Highlights
 import generateAnnotatedString
 
 @Composable
 fun CodeTextView(
     modifier: Modifier = Modifier.background(Color.Transparent),
-    highlights: Highlights
+    highlights: Highlights,
+    textStyle: TextStyle = TextStyle.Default
 ) {
     var textState by remember {
         mutableStateOf(AnnotatedString(highlights.getCode()))
@@ -41,7 +43,8 @@ fun CodeTextView(
             modifier = modifier
                 .verticalScroll(rememberScrollState())
                 .horizontalScroll(rememberScrollState()),
-            text = textState
+            text = textState,
+            style = textStyle
         )
     }
 }
