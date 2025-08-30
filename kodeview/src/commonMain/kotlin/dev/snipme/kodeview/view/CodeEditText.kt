@@ -1,10 +1,11 @@
 package dev.snipme.kodeview.view
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
-import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.LocalTextStyle
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
@@ -13,6 +14,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.TextStyle
@@ -24,6 +26,7 @@ import updateIndentations
 import dev.snipme.highlights.Highlights
 import dev.snipme.highlights.model.CodeHighlight
 import generateAnnotatedString
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun CodeEditText(
@@ -47,7 +50,9 @@ fun CodeEditText(
     minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = TextFieldDefaults.TextFieldShape,
-    colors: TextFieldColors = TextFieldDefaults.textFieldColors()
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors(),
+    showLineNumbers: Boolean = false,
+    lineNumberTextStyle: TextStyle = textStyle.copy()
 ) {
     val currentText = remember {
         mutableStateOf(
@@ -78,26 +83,33 @@ fun CodeEditText(
         )
     }
 
-    TextField(
-        modifier = modifier.fillMaxWidth(),
-        onValueChange = ::updateNewValue,
-        value = currentText.value,
-        enabled = enabled,
-        readOnly = readOnly,
-        textStyle = textStyle,
-        label = label,
-        placeholder = placeholder,
-        leadingIcon = leadingIcon,
-        trailingIcon = trailingIcon,
-        isError = isError,
-        visualTransformation = visualTransformation,
-        keyboardOptions = keyboardOptions,
-        keyboardActions = keyboardActions,
-        singleLine = singleLine,
-        maxLines = maxLines,
-        minLines = minLines,
-        interactionSource = interactionSource,
-        shape = shape,
-        colors = colors,
-    )
+    Row(modifier = modifier) {
+        if (showLineNumbers) {
+            val lines = currentText.value.text.lines().size
+            Column {
+                for (i in 1..lines) {
+                    androidx.compose.material.Text(
+                        text = i.toString(),
+                        style = lineNumberTextStyle
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.width(8.dp))
+        }
+        TextField(
+            modifier = Modifier.fillMaxWidth(),
+            onValueChange = ::updateNewValue,
+            value = currentText.value,
+            enabled = enabled,
+            readOnly = readOnly,
+            textStyle = textStyle,
+            label = label,
+            placeholder = placeholder,
+            leadingIcon = leadingIcon,
+            trailingIcon = trailingIcon,
+            isError = isError,
+            visualTransformation = visualTransformation,
+            keyboardOptions = keyboardOptions,
+        )
+    }
 }

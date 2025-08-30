@@ -109,7 +109,7 @@ fun App() {
 
                 Spacer(modifier = Modifier.size(16.dp))
 
-                CodeTextView(highlights = highlights)
+                CodeTextView(highlights = highlights, showLineNumbers = true)
 
                 Spacer(modifier = Modifier.size(16.dp))
 
@@ -133,6 +133,7 @@ fun App() {
                         disabledIndicatorColor = Color.Transparent,
                         errorIndicatorColor = Color.Transparent,
                     ),
+                    showLineNumbers = true,
                 )
 
                 Spacer(modifier = Modifier.size(16.dp))
