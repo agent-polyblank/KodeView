@@ -9,10 +9,12 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldColors
 import androidx.compose.material.TextFieldDefaults
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
@@ -86,16 +88,24 @@ fun CodeEditText(
     Row(modifier = modifier) {
         if (showLineNumbers) {
             val lines = currentText.value.text.lines().size
-            Column {
+            Column(horizontalAlignment = Alignment.End,) {
                 for (i in 1..lines) {
                     androidx.compose.material.Text(
                         text = i.toString(),
                         style = lineNumberTextStyle
                     )
                 }
+
             }
             Spacer(modifier = Modifier.width(8.dp))
         }
+        VerticalDivider(
+            color = if (MaterialTheme.colors.isLight) Color.LightGray else Color.DarkGray,
+            modifier = Modifier
+                .fillMaxHeight()
+                .width(1.dp)
+                .padding(vertical = 4.dp)
+        )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             onValueChange = ::updateNewValue,

@@ -17,6 +17,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.AnnotatedString
@@ -37,10 +38,6 @@ fun CodeTextView(
         mutableStateOf(AnnotatedString(highlights.getCode()))
     }
 
-    var comments by remember {
-        mutableStateOf(Color.Gray)
-    }
-
     LaunchedEffect(highlights) {
         textState = highlights
             .getHighlights()
@@ -57,7 +54,7 @@ fun CodeTextView(
         ) {
             if (showLineNumbers) {
                 val lines = textState.text.lines().size
-                Column {
+                Column(horizontalAlignment = Alignment.End) {
                     for (i in 1..lines) {
                         Text(
                             text = i.toString(),
