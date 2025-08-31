@@ -99,13 +99,6 @@ fun CodeEditText(
             }
             Spacer(modifier = Modifier.width(8.dp))
         }
-        VerticalDivider(
-            color = if (MaterialTheme.colors.isLight) Color.LightGray else Color.DarkGray,
-            modifier = Modifier
-                .fillMaxHeight()
-                .width(1.dp)
-                .padding(vertical = 4.dp)
-        )
         TextField(
             modifier = Modifier.fillMaxWidth(),
             onValueChange = ::updateNewValue,
