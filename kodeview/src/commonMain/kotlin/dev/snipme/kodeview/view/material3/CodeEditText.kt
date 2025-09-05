@@ -210,14 +210,6 @@ fun CodeEditTextSwiftUi(
                     )
                 }
             }
-            // Vertical divider between line numbers and editor
-            Divider(
-                modifier = Modifier
-                    .width(1.dp)
-                    .fillMaxHeight()
-                    .padding(end = 8.dp),
-                color = Color.LightGray
-            )
         }
 
         TextField3(
